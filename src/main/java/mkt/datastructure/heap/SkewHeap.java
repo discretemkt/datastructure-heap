@@ -52,14 +52,14 @@ public class SkewHeap<E> implements Heap<E> {
         if (root == null)
             return null;
         E e = root.key;
-        root = merge(root.left, root.right);
+        root = mergeSubtrees(root.left, root.right);
         --size;
         return e;
     }
     
     @Override
     public void insert(E e) throws ClassCastException, NullPointerException {
-        root = merge(new Node(e), root);
+        root = mergeSubtrees(new Node(e), root);
         size++;
     }
     
@@ -74,7 +74,7 @@ public class SkewHeap<E> implements Heap<E> {
             return;
         @SuppressWarnings("unchecked")
         SkewHeap<E> sh = (SkewHeap<E>) h;
-        root = merge(sh.root, root);
+        root = mergeSubtrees(sh.root, root);
         size += sh.size;
     }
     
@@ -83,7 +83,7 @@ public class SkewHeap<E> implements Heap<E> {
         return size == 0;
     }
     
-    private Node merge(Node x, Node y) throws ClassCastException {
+    private Node mergeSubtrees(Node x, Node y) throws ClassCastException {
         if (y == null)
             return x;
         assert x != null;
@@ -92,7 +92,7 @@ public class SkewHeap<E> implements Heap<E> {
             y = x;
             x = tmp;
         }
-        y.right = merge(x, y.right);
+        y.right = mergeSubtrees(x, y.right);
         Node tmp = y.right;
         y.right = y.left;
         y.left = tmp;

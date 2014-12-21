@@ -78,7 +78,7 @@ public class BinomialHeap<E> implements Heap<E> {
         for (Node n = min.child, next; n != null; n = next) {
             next = n.next;
             n.next = null;
-            insert(n);
+            insertSubtree(n);
         }
         --size;
         return min.key;
@@ -86,7 +86,7 @@ public class BinomialHeap<E> implements Heap<E> {
     
     @Override
     public void insert(E e) throws ClassCastException, NullPointerException {
-        insert(new Node(e));
+        insertSubtree(new Node(e));
         size++;
     }
     
@@ -104,7 +104,7 @@ public class BinomialHeap<E> implements Heap<E> {
         for (Node n = bh.head, next; n != null; n = next) {
             next = n.next;
             n.next = null;
-            insert(n);
+            insertSubtree(n);
         }
         size += bh.size;
     }
@@ -120,7 +120,7 @@ public class BinomialHeap<E> implements Heap<E> {
      * @param node
      * @throws ClassCastException 
      */
-    private void insert(Node node) throws ClassCastException {
+    private void insertSubtree(Node node) throws ClassCastException {
         assert node != null;
         assert node.next == null;
         Node prev = null;
@@ -134,7 +134,7 @@ public class BinomialHeap<E> implements Heap<E> {
             if (node.order == cur.order) {
                 if (prev != null)
                     prev.next = next;
-                node = merge(node, cur);
+                node = mergeSubtrees(node, cur);
             } else { // i.e. if node.order > curr.order
                 prev = cur;
             }
@@ -157,7 +157,7 @@ public class BinomialHeap<E> implements Heap<E> {
      * @return
      * @throws ClassCastException 
      */
-    private Node merge(Node x, Node y) throws ClassCastException {
+    private Node mergeSubtrees(Node x, Node y) throws ClassCastException {
         assert x != null && y != null;
         assert x.order == y.order;
         assert x.next == null;
