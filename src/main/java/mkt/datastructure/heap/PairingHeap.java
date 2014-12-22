@@ -94,14 +94,41 @@ public class PairingHeap<E> implements Heap<E> {
         return size == 0;
     }
     
-    private Node mergeManyNodes(Node n) throws ClassCastException {
+    /**
+     * Merges nodes such that pairing is performed front-to-back and combining
+     * is performed back-to-front.
+     * @param n
+     * @return
+     * @throws ClassCastException 
+     */
+    private Node _mergeManyNodes(Node n) throws ClassCastException {
         if (n != null) {
             Node n0 = n.next;
             if (n0 != null) {
                 Node n1 = n0.next;
-                n = mergeTwoNodes(mergeTwoNodes(n, n0), mergeManyNodes(n1));
+                n = mergeTwoNodes(mergeTwoNodes(n, n0), _mergeManyNodes(n1));
             }
             n.next = null;
+        }
+        return n;
+    }
+    
+    /**
+     * Merges nodes such that both pairing and combining are performed
+     * front-to-back at the same time.
+     * @param n
+     * @return
+     * @throws ClassCastException 
+     */
+    private Node mergeManyNodes(Node n) throws ClassCastException {
+        if (n == null)
+            return null;
+        Node nx1 = n.next;
+        while (nx1 != null) {
+            Node nx2 = nx1.next;
+            Node nx3 = nx2 == null ? null : nx2.next;
+            n = mergeTwoNodes(n, mergeTwoNodes(nx1, nx2));
+            nx1 = nx3;
         }
         return n;
     }
@@ -113,10 +140,12 @@ public class PairingHeap<E> implements Heap<E> {
         if (n0.lessThan(n1)) {
             n1.next = n0.child;
             n0.child = n1;
+            n0.next = null;
             return n0;
         }
         n0.next = n1.child;
         n1.child = n0;
+        n1.next = null;
         return n1;
     }
     

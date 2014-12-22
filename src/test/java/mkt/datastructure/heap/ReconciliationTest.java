@@ -24,7 +24,7 @@ public class ReconciliationTest {
     public void testPairingHeap() {
         Heap<Integer> heap0 = new PairingHeap<>();
         Heap<Integer> heap1 = new PairingHeap<>();
-        testWithRandomNumbers(heap0, heap1, 64 * 64 - 1);
+        testWithRandomNumbers(heap0, heap1, 1024 * 1024 - 1);
     }
     
     @Test
