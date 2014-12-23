@@ -14,6 +14,13 @@ import org.junit.Test;
 public class ReconciliationTest {
     
     @Test
+    public void testBinaryHeap() {
+        Heap<Integer> heap0 = new BinaryHeap<>();
+        Heap<Integer> heap1 = new BinaryHeap<>();
+        testWithRandomNumbers(heap0, heap1, 1024 * 1024 - 1);
+    }
+    
+    @Test
     public void testBinomialHeap() {
         Heap<Integer> heap0 = new BinomialHeap<>();
         Heap<Integer> heap1 = new BinomialHeap<>();
