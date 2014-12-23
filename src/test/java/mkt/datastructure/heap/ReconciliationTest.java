@@ -28,6 +28,13 @@ public class ReconciliationTest {
     }
     
     @Test
+    public void testLeftistHeap() {
+        Heap<Integer> heap0 = new LeftistHeap<>();
+        Heap<Integer> heap1 = new LeftistHeap<>();
+        testWithRandomNumbers(heap0, heap1, 1024 * 1024 - 1);
+    }
+    
+    @Test
     public void testPairingHeap() {
         Heap<Integer> heap0 = new PairingHeap<>();
         Heap<Integer> heap1 = new PairingHeap<>();
