@@ -7,7 +7,7 @@ import java.util.Random;
  * @since 0.0.1
  * @author mkt
  */
-public class BenchMarkTest {
+public class BenchmarkTest {
     
     public static void main(String... args) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
